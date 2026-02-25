@@ -5,7 +5,7 @@ A personal Claude Code marketplace. Provides custom agents, skills, and template
 ## Add Marketplace
 
 ```bash
-/plugin marketplace add topjung3/heesu-claude-marketplace
+/plugin marketplace add https://github.com/topjung3/heesu-claude-marketplace.git
 ```
 
 ## Plugin List
@@ -19,7 +19,6 @@ A personal Claude Code marketplace. Provides custom agents, skills, and template
 ### Register Marketplace
 
 ```bash
-/plugin marketplace add https://github.com/topjung3/heesu-claude-marketplace.git
 /plugin install plugin-template@heesu-claude-marketplace
 ```
 
