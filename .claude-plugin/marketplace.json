@@ -7,7 +7,7 @@
     {
       "name": "plugin-template",
       "source": "./plugins/plugin-template",
-      "description": "플러그인 템플릿 저장 및 로드 관리. 프로젝트별 플러그인 세트를 빠르게 전환."
+      "description": "Plugin template saving and loading management."
     }
   ]
 }
