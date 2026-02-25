@@ -5,9 +5,10 @@
   },
   "plugins": [
     {
-      "name": "plugin-template",
-      "source": "./plugins/plugin-template",
-      "description": "Plugin template saving and loading management."
+      "name": "plugin-preset",
+      "source": "./plugins/plugin-preset",
+      "description": "Plugin preset saving and loading plugin.",
+      "version": "1.0.0"
     }
   ]
 }

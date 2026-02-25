@@ -23,6 +23,7 @@ async function main() {
         name: plugin.name,
         source: `./plugins/${dir}`,
         description: plugin.description,
+        ...(plugin.version && { version: plugin.version }),
       });
     } catch {
       console.warn(`skip: plugins/${dir} (.claude-plugin/plugin.json not found)`);

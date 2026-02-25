@@ -1,6 +1,6 @@
 # heesu-claude-marketplace
 
-A personal Claude Code marketplace. Provides custom agents, skills, and template management tools as plugins.
+A personal Claude Code marketplace. Provides custom agents, skills, and preset management tools as plugins.
 
 ## Add Marketplace
 
@@ -12,40 +12,40 @@ A personal Claude Code marketplace. Provides custom agents, skills, and template
 
 | Plugin | Description | External Dependencies |
 |--------|-------------|-----------------------|
-| `plugin-template` | Save/load plugin templates. Quickly switch plugin sets per project | None |
+| `plugin-preset` | Save/load plugin presets. Quickly switch plugin sets per project | None |
 
 ## Installation
 
 ### Register Marketplace
 
 ```bash
-/plugin install plugin-template@heesu-claude-marketplace
+/plugin install plugin-preset@heesu-claude-marketplace
 ```
 
 ## Development
 
 ```bash
-claude --plugin-dir ./plugins/plugin-template
+claude --plugin-dir ./plugins/plugin-preset
 ```
 
 ## Details
 
-### plugin-template
+### plugin-preset
 
-The `plugin-template` plugin allows you to save and switch between plugin combinations for each project type.
+The `plugin-preset` plugin allows you to save and switch between plugin combinations for each project type.
 
-### Save Current Plugin Configuration as a Template
+### Save Current Plugin Configuration as a Preset
 
 ```bash
-/plugin-template:save go-backend Go backend development environment
+/plugin-preset:save go-backend Go backend development environment
 ```
 
-### Load a Saved Template
+### Load a Saved Preset
 
 ```bash
-# View template list
-/plugin-template:list
+# View preset list
+/plugin-preset:list
 
-# Load a specific template
-/plugin-template:load go-backend
+# Load a specific preset
+/plugin-preset:load go-backend
 ```

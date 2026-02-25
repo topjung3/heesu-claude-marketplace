@@ -31,7 +31,7 @@ async function listTemplates() {
   if (jsonFiles.length === 0) {
     output({
       status: "no_templates",
-      message: "저장된 템플릿이 없습니다. /plugin-template:save 로 먼저 저장하세요.",
+      message: "저장된 프리셋이 없습니다. /plugin-preset:save 로 먼저 저장하세요.",
     });
     return;
   }

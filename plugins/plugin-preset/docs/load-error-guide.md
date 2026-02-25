@@ -8,7 +8,7 @@ List the `*.json` files in the `~/.claude/templates/` directory.
 
 Show each template's `name`, `description`, and `enabledPlugins` count as a table, and ask the user which template to load.
 
-If there are no templates, suggest `/plugin-template:save` and abort.
+If there are no templates, suggest `/plugin-preset:save` and abort.
 
 ## Execute Load (when arguments provided)
 
@@ -22,7 +22,7 @@ Read `~/.claude/plugins/known_marketplaces.json` and check if there are marketpl
 
 If there are missing marketplaces:
 - Provide `/plugin marketplace add <url>` commands with each marketplace's source URL
-- Suggest running `/plugin-template:load <name>` again after adding marketplaces, then abort
+- Suggest running `/plugin-preset:load <name>` again after adding marketplaces, then abort
 
 ### Step 3: Check Plugin Installation
 
@@ -30,7 +30,7 @@ Read `~/.claude/plugins/installed_plugins.json` and check if there are plugins i
 
 If there are missing plugins:
 - Provide `/plugin install <plugin>@<marketplace>` commands for each plugin
-- Suggest running `/plugin-template:load <name>` again after installation, then abort
+- Suggest running `/plugin-preset:load <name>` again after installation, then abort
 
 ### Step 4: Update settings.json
 

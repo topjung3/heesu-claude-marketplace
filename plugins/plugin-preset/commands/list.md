@@ -1,9 +1,9 @@
 ---
-description: Show saved plugin template list
+description: Show saved plugin preset list
 disable-model-invocation: true
 ---
 
-# Plugin Template List
+# Plugin Preset List
 
 ## Run Script
 
@@ -16,5 +16,5 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs
 The script output is JSON. Handle based on the `status` field:
 
 - **`"list"`**: Display the `templates` array as a table (name, description, pluginCount, created_at).
-- **`"no_templates"`**: Inform the user there are no saved templates, and suggest `/plugin-template:save`.
+- **`"no_templates"`**: Inform the user there are no saved presets, and suggest `/plugin-preset:save`.
 - **Script error**: Directly read `*.json` files from the `~/.claude/templates/` directory and display the list.
