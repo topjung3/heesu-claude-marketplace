@@ -1,6 +1,7 @@
 ---
 description: Show saved plugin preset list
 disable-model-invocation: true
+model: Haiku
 ---
 
 # Plugin Preset List

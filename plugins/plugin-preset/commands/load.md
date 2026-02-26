@@ -2,6 +2,7 @@
 description: Load a preset to switch plugin enabled/disabled states
 disable-model-invocation: true
 argument-hint: [name]
+model: Haiku
 ---
 
 # Load Plugin Preset

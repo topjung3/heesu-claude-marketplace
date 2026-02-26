@@ -2,6 +2,7 @@
 description: Save currently active plugins as a template
 disable-model-invocation: true
 argument-hint: <name> [description]
+model: Haiku
 ---
 
 # Save Plugin Template
