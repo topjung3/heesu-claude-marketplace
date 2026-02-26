@@ -16,6 +16,6 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs
 
 The script output is JSON. Handle based on the `status` field:
 
-- **`"list"`**: Display the `templates` array as a table (name, description, pluginCount, created_at).
-- **`"no_templates"`**: Inform the user there are no saved presets, and suggest `/plugin-preset:save`.
-- **Script error**: Directly read `*.json` files from the `~/.claude/templates/` directory and display the list.
+- **`"list"`**: Display the `presets` array as a table (name, description, pluginCount, created_at).
+- **`"no_presets"`**: Inform the user there are no saved presets, and suggest `/plugin-preset:save`.
+- **Script error**: Directly read `*.json` files from the `~/.claude/presets/` directory and display the list.

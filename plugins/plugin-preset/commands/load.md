@@ -17,7 +17,7 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs $ARGUMENTS
 
 The script output is JSON. Handle based on the `status` field:
 
-- **`"list"`**: Display the `templates` array as a table (name, description, pluginCount, created_at), and ask the user which preset to load. Once selected, re-run:
+- **`"list"`**: Display the `presets` array as a table (name, description, pluginCount, created_at), and ask the user which preset to load. Once selected, re-run:
   ```bash
   node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs <selected_name>
   ```
@@ -31,7 +31,7 @@ The script output is JSON. Handle based on the `status` field:
 
 - **`"not_found"`**: Inform the user the preset was not found, and suggest checking the list with `/plugin-preset:load`.
 
-- **`"no_templates"`**: Inform the user there are no saved presets, and suggest `/plugin-preset:save`.
+- **`"no_presets"`**: Inform the user there are no saved presets, and suggest `/plugin-preset:save`.
 
 - **`"missing_deps"`**: Inform about missing dependencies:
   - If `missingMarketplaces` exists, provide each item's `addCommand`

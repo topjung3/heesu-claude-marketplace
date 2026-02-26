@@ -7,7 +7,7 @@ import { homedir } from "node:os";
 const HOME = homedir();
 const SETTINGS_PATH = join(HOME, ".claude", "settings.json");
 const MARKETPLACES_PATH = join(HOME, ".claude", "plugins", "known_marketplaces.json");
-const TEMPLATES_DIR = join(HOME, ".claude", "templates");
+const PRESETS_DIR = join(HOME, ".claude", "presets");
 
 function output(obj) {
   console.log(JSON.stringify(obj, null, 2));
@@ -24,12 +24,12 @@ async function main() {
 
   const name = filtered[0];
   if (!name) {
-    throw new Error("템플릿 이름이 필요합니다.");
+    throw new Error("프리셋 이름이 필요합니다.");
   }
 
   if (!/^[a-zA-Z0-9가-힣_-]+$/.test(name)) {
     throw new Error(
-      `잘못된 템플릿 이름: "${name}". 영문, 숫자, 한글, 하이픈, 언더스코어만 허용됩니다.`
+      `잘못된 프리셋 이름: "${name}". 영문, 숫자, 한글, 하이픈, 언더스코어만 허용됩니다.`
     );
   }
 
@@ -72,22 +72,22 @@ async function main() {
     // known_marketplaces.json이 없어도 계속 진행
   }
 
-  // 3. Ensure templates directory exists
+  // 3. Ensure presets directory exists
   try {
-    await mkdir(TEMPLATES_DIR, { recursive: true });
+    await mkdir(PRESETS_DIR, { recursive: true });
   } catch {
     // ignore
   }
 
-  // 4. Check for existing template
-  const templatePath = join(TEMPLATES_DIR, `${name}.json`);
+  // 4. Check for existing preset
+  const presetPath = join(PRESETS_DIR, `${name}.json`);
   if (!force) {
     try {
-      await access(templatePath);
-      const existing = await readJSON(templatePath);
+      await access(presetPath);
+      const existing = await readJSON(presetPath);
       output({
         status: "exists",
-        path: templatePath,
+        path: presetPath,
         existing: {
           name: existing.name,
           description: existing.description,
@@ -101,8 +101,8 @@ async function main() {
     }
   }
 
-  // 5. Build and save template
-  const template = {
+  // 5. Build and save preset
+  const preset = {
     name,
     description,
     created_at: new Date().toISOString(),
@@ -110,12 +110,12 @@ async function main() {
     knownMarketplaces,
   };
 
-  await writeFile(templatePath, JSON.stringify(template, null, 2) + "\n");
+  await writeFile(presetPath, JSON.stringify(preset, null, 2) + "\n");
 
   output({
     status: "saved",
-    path: templatePath,
-    template,
+    path: presetPath,
+    preset,
   });
 }
 

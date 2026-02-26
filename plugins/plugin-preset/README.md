@@ -53,4 +53,4 @@ claude --plugin-dir ./plugins/plugin-preset
 
 ### Preset Storage Location
 
-`~/.claude/templates/<name>.json`
+`~/.claude/presets/<name>.json`

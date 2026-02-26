@@ -8,7 +8,7 @@ const HOME = homedir();
 const SETTINGS_PATH = join(HOME, ".claude", "settings.json");
 const MARKETPLACES_PATH = join(HOME, ".claude", "plugins", "known_marketplaces.json");
 const INSTALLED_PATH = join(HOME, ".claude", "plugins", "installed_plugins.json");
-const TEMPLATES_DIR = join(HOME, ".claude", "templates");
+const PRESETS_DIR = join(HOME, ".claude", "presets");
 
 function output(obj) {
   console.log(JSON.stringify(obj, null, 2));
@@ -18,58 +18,58 @@ async function readJSON(path) {
   return JSON.parse(await readFile(path, "utf-8"));
 }
 
-async function listTemplates() {
+async function listPresets() {
   let files;
   try {
-    files = await readdir(TEMPLATES_DIR);
+    files = await readdir(PRESETS_DIR);
   } catch {
-    output({ status: "no_templates", message: "템플릿 디렉토리가 없습니다." });
+    output({ status: "no_presets", message: "프리셋 디렉토리가 없습니다." });
     return;
   }
 
   const jsonFiles = files.filter((f) => f.endsWith(".json"));
   if (jsonFiles.length === 0) {
     output({
-      status: "no_templates",
+      status: "no_presets",
       message: "저장된 프리셋이 없습니다. /plugin-preset:save 로 먼저 저장하세요.",
     });
     return;
   }
 
-  const templates = [];
+  const presets = [];
   for (const file of jsonFiles.sort()) {
     try {
-      const tpl = await readJSON(join(TEMPLATES_DIR, file));
-      templates.push({
-        name: tpl.name,
-        description: tpl.description || "",
-        pluginCount: Object.keys(tpl.enabledPlugins || {}).length,
-        created_at: tpl.created_at,
+      const preset = await readJSON(join(PRESETS_DIR, file));
+      presets.push({
+        name: preset.name,
+        description: preset.description || "",
+        pluginCount: Object.keys(preset.enabledPlugins || {}).length,
+        created_at: preset.created_at,
       });
     } catch {
       // skip malformed files
     }
   }
 
-  output({ status: "list", templates });
+  output({ status: "list", presets });
 }
 
-async function loadTemplate(name) {
-  // 1. Read template
-  const templatePath = join(TEMPLATES_DIR, `${name}.json`);
-  let template;
+async function loadPreset(name) {
+  // 1. Read preset
+  const presetPath = join(PRESETS_DIR, `${name}.json`);
+  let preset;
   try {
-    template = await readJSON(templatePath);
+    preset = await readJSON(presetPath);
   } catch {
     output({
       status: "not_found",
-      message: `템플릿 "${name}"을 찾을 수 없습니다. 경로: ${templatePath}`,
+      message: `프리셋 "${name}"을 찾을 수 없습니다. 경로: ${presetPath}`,
     });
     return;
   }
 
-  const templatePlugins = template.enabledPlugins || {};
-  const templateMarkets = template.knownMarketplaces || {};
+  const presetPlugins = preset.enabledPlugins || {};
+  const presetMarkets = preset.knownMarketplaces || {};
 
   // 2. Check missing marketplaces
   let currentMarkets = {};
@@ -80,7 +80,7 @@ async function loadTemplate(name) {
   }
 
   const missingMarketplaces = [];
-  for (const [marketName, marketInfo] of Object.entries(templateMarkets)) {
+  for (const [marketName, marketInfo] of Object.entries(presetMarkets)) {
     if (!currentMarkets[marketName]) {
       const url =
         marketInfo.source?.url ||
@@ -104,7 +104,7 @@ async function loadTemplate(name) {
   }
 
   const missingPlugins = [];
-  for (const pluginKey of Object.keys(templatePlugins)) {
+  for (const pluginKey of Object.keys(presetPlugins)) {
     if (!installedPlugins.plugins?.[pluginKey]) {
       missingPlugins.push({
         name: pluginKey,
@@ -137,8 +137,8 @@ async function loadTemplate(name) {
 
   const newEnabled = { ...currentEnabled };
 
-  // Enable template plugins
-  for (const pluginKey of Object.keys(templatePlugins)) {
+  // Enable preset plugins
+  for (const pluginKey of Object.keys(presetPlugins)) {
     if (currentEnabled[pluginKey] === true) {
       changes.unchanged.push(pluginKey);
     } else {
@@ -147,9 +147,9 @@ async function loadTemplate(name) {
     newEnabled[pluginKey] = true;
   }
 
-  // Disable plugins not in template
+  // Disable plugins not in preset
   for (const [pluginKey, val] of Object.entries(currentEnabled)) {
-    if (val === true && !templatePlugins[pluginKey]) {
+    if (val === true && !presetPlugins[pluginKey]) {
       changes.disabled.push(pluginKey);
       newEnabled[pluginKey] = false;
     }
@@ -160,7 +160,7 @@ async function loadTemplate(name) {
 
   output({
     status: "applied",
-    message: `템플릿 "${name}" 적용 완료.`,
+    message: `프리셋 "${name}" 적용 완료.`,
     changes,
   });
 }
@@ -169,9 +169,9 @@ async function main() {
   const name = process.argv[2];
 
   if (!name) {
-    await listTemplates();
+    await listPresets();
   } else {
-    await loadTemplate(name);
+    await loadPreset(name);
   }
 }
 

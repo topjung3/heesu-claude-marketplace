@@ -16,20 +16,20 @@ Match marketplace source information for each active plugin's marketplace name (
 
 ## Step 3: Directory and Duplicate Check
 
-If the `~/.claude/templates/` directory does not exist, create it with Bash:
+If the `~/.claude/presets/` directory does not exist, create it with Bash:
 ```
-mkdir -p ~/.claude/templates
+mkdir -p ~/.claude/presets
 ```
 
-If `~/.claude/templates/<name>.json` already exists, ask the user whether to overwrite. If declined, abort.
+If `~/.claude/presets/<name>.json` already exists, ask the user whether to overwrite. If declined, abort.
 
-## Step 4: Save Template File
+## Step 4: Save Preset File
 
-Save a JSON file in the following format to `~/.claude/templates/<name>.json`:
+Save a JSON file in the following format to `~/.claude/presets/<name>.json`:
 
 ```json
 {
-  "name": "<template name>",
+  "name": "<preset name>",
   "description": "<description or empty string>",
   "created_at": "<current ISO 8601 timestamp>",
   "enabledPlugins": {
@@ -45,4 +45,4 @@ Save a JSON file in the following format to `~/.claude/templates/<name>.json`:
 
 ## Step 5: Report Results
 
-Inform the user of the saved template's name, included plugin list, and save path.
+Inform the user of the saved preset's name, included plugin list, and save path.
