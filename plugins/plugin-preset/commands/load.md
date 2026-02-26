@@ -17,7 +17,11 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs $ARGUMENTS
 
 The script output is JSON. Handle based on the `status` field:
 
-- **`"list"`**: Display the `presets` array as a table (name, description, pluginCount, created_at), and ask the user which preset to load. Once selected, re-run:
+- **`"list"`**: Display the `presets` array as a table (name, description, pluginCount, created_at).
+  Then use the Task tool to spawn a general-purpose subagent that:
+  1. Uses AskUserQuestion to present the preset names as options so the user can select one
+  2. Returns the selected preset name
+  Once selected, re-run:
   ```bash
   node ${CLAUDE_PLUGIN_ROOT}/scripts/load.mjs <selected_name>
   ```

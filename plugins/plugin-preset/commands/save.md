@@ -22,7 +22,11 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/save.mjs $ARGUMENTS
 The script output is JSON. Handle based on the `status` field:
 
 - **`"saved"`**: Save complete. Report the key list from `preset.enabledPlugins` and the `path` to the user.
-- **`"exists"`**: A preset with the same name already exists. Show the `existing` info and ask whether to overwrite. If approved, re-run with the `--force` flag:
+- **`"exists"`**: A preset with the same name already exists. Show the `existing` info.
+  Then use the Task tool to spawn a general-purpose subagent that:
+  1. Uses AskUserQuestion to present options: "Overwrite" and "Cancel"
+  2. Returns the user's choice
+  If the user chose "Overwrite", re-run with the `--force` flag:
   ```bash
   node ${CLAUDE_PLUGIN_ROOT}/scripts/save.mjs $ARGUMENTS --force
   ```
